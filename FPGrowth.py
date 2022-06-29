@@ -1,21 +1,28 @@
 # pip install pyfpgrowth
 
 import pyfpgrowth
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
-transactions = [[1, 2, 5],
-                [2, 4],
-                [2, 3],
-                [1, 2, 4],
-                [1, 3],
-                [2, 3],
-                [1, 3],
-                [1, 2, 3, 5],
-                [1, 2, 3]]
+store_data = pd.read_csv('store_data.csv')
 
-patterns = pyfpgrowth.find_frequent_patterns(transactions, 2)
+store_data.head()
 
-rules = pyfpgrowth.generate_association_rules(patterns, 0.7)
+store_data = pd.read_csv('store_data.csv', header=None)
+store_data.head()
 
-print(len(rules))
+records = []
+for i in range(0, 7501):
+    records.append([str(store_data.values[i,j]) for j in range(0, 20)])
 
-print(rules)
+patterns = pyfpgrowth.find_frequent_patterns(transactions, 10)
+
+rules = pyfpgrowth.generate_association_rules(patterns, 0.8)
+
+association_results = list(rules)
+
+print(len(association_results))
+      
+
+print(association_results)
